@@ -34,8 +34,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 			throw new Exception(ex.Message);
 		}		
     }
-
-	// GET ALL 
+	
+    // GET ALL 
     public async Task<List<TEntity>> GetAll()
     {
 		try

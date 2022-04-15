@@ -1,6 +1,7 @@
 using Blogs.Models;
 using Blogs.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blogs.Controllers;
 
@@ -13,14 +14,14 @@ public class UserController : Controller
         this._userService = userService;
     }
 
-    // GET list/Users
+    // GET List/Users
     [HttpGet]    
-    [Route("list/Users")]
+    [Route("List/Users")]
     public async Task<ActionResult> GetAllUser() => Ok(await _userService.GetAll());
 
-    // GET list/UsersById
+    // GET List/UsersById
     [HttpGet]        
-    [Route("list/UsersById")]
+    [Route("List/UsersById")]
 	public async Task<ActionResult> GetById(int id)
 	{
 		if(id == 0)
@@ -30,18 +31,47 @@ public class UserController : Controller
         return user != null ? Ok(user) : NotFound("User doesn't exists");
 	}
 
-    // POST create/User
+    // POST Create/User
     [HttpPost]       
-    [Route("create/User")]
+    [Route("Create/User")]
 	public async Task<ActionResult> Create(User user)
 	{
 		if(ModelState.IsValid)
 		{
 			user = await _userService.Insert(user);
-			//var id = user.ID; // en mi base el id es autogenerado, esto no va.
 		}
 		return Ok(user);
 	}
 
+    // PUT Update/User
+    [HttpPut]       
+    [Route("Update/User")]
+    public async Task<ActionResult> Edit(User user)
+    {
+        if(ModelState.IsValid)
+		{
+			user = await _userService.Update(user);
+		}
+		return Ok(user);
+    }
 
+    // DELETE Delete/User
+    // [HttpDelete]       
+    // [Route("Delete/User")]
+    // public async Task<ActionResult> Delete(int? id)
+    // {
+    //     try
+    //     {
+    //         if(id == null)
+    //             return NotFound();
+
+    //         var user = await _userService.Delete(id);
+
+    //         return Ok(user);
+    //     }
+    //     catch (Exception)
+    //     {
+    //         return NotFound("User doesn't exists");
+    //     }
+    // }
 }
