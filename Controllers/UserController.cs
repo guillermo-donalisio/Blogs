@@ -45,7 +45,7 @@ public class UserController : Controller
 
     // PUT Update/User
     [HttpPut]       
-    [Route("Update/User")]
+    [Route("Update/User/{id}")]
     public async Task<ActionResult> Edit(User user)
     {
         if(ModelState.IsValid)
@@ -56,22 +56,22 @@ public class UserController : Controller
     }
 
     // DELETE Delete/User
-    // [HttpDelete]       
-    // [Route("Delete/User")]
-    // public async Task<ActionResult> Delete(int? id)
-    // {
-    //     try
-    //     {
-    //         if(id == null)
-    //             return NotFound();
+    [HttpDelete]       
+    [Route("Delete/User/{id}")]
+    public async Task<ActionResult> Delete(int? id)
+    {
+        try
+        {
+            if(id == null)
+                return NotFound();
 
-    //         var user = await _userService.Delete(id);
+            await _userService.Delete(id.Value);
 
-    //         return Ok(user);
-    //     }
-    //     catch (Exception)
-    //     {
-    //         return NotFound("User doesn't exists");
-    //     }
-    // }
+            return Ok("User deleted successfully.");
+        }
+        catch (Exception)
+        {
+            return NotFound("User doesn't exists");
+        }
+    }
 }
