@@ -17,7 +17,7 @@ public class BlogContext : DbContext
             .AddJsonFile("appsettings.json")
             .Build();
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = configuration.GetConnectionString("BlogConnection");
         optionsBuilder.UseSqlServer(connectionString);
     }
 
