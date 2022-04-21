@@ -1,11 +1,13 @@
 using Blogs.Models;
 using Blogs.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blogs.Controllers;
 
 [ApiController]
+[Authorize]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
